@@ -58,5 +58,37 @@ namespace StudentManagementSystem
         {
 
         }
+
+        private void 学生信息查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = Application.OpenForms["Form3"] as Form3;
+            if (form3 == null)
+            {
+                form3 = new Form3();
+            }
+            form3.Show();
+        }
+
+        private void 学生信息批量添加ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = Application.OpenForms["Form4"] as Form4;
+            if (form4 == null)
+            {
+                form4 = new Form4();
+            }
+            form4.Show();
+            form4.Activate();
+        }
+
+        private void 学生信息批量添加ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Form4 form4 = Application.OpenForms["Form4"] as Form4;
+            if (form4 == null)
+            {
+                form4 = new Form4();
+            }
+            form4.Show();
+            form4.Activate();
+        }
     }
 }
