@@ -21,6 +21,15 @@ namespace StudentManagementSystem
         public Form1()
         {
             InitializeComponent();
+
+            // 允许使用复选框标记“已选择入学日期”（未选中表示不修改/未设定）
+            if (dateTimePicker1 != null)
+            {
+                dateTimePicker1.ShowCheckBox = true;
+                dateTimePicker1.Checked = false; // 默认不选中，添加时若未选中将使用今天
+                dateTimePicker1.Value = DateTime.Today;
+            }
+
             sqlHelper = new SqlHelper(connectionString);
             LoadStudents();
         }
@@ -53,7 +62,8 @@ namespace StudentManagementSystem
                 Major = txtMajor?.Text.Trim() ?? string.Empty,
                 PhoneNum = txtPhone?.Text.Trim() ?? string.Empty,
                 Email = txtEmail?.Text.Trim() ?? string.Empty,
-                EnrollmentDate = DateTime.Now
+                // 使用 dateTimePicker1：若用户选中（Checked），使用所选日期；否则默认今天
+                EnrollmentDate = (dateTimePicker1 != null && dateTimePicker1.Checked) ? dateTimePicker1.Value.Date : DateTime.Today
             };
 
             // 校验输入
@@ -119,6 +129,11 @@ namespace StudentManagementSystem
             if (txtMajor != null) txtMajor.Clear();
             if (txtPhone != null) txtPhone.Clear();
             if (txtEmail != null) txtEmail.Clear();
+            if (dateTimePicker1 != null)
+            {
+                dateTimePicker1.Value = DateTime.Today;
+                dateTimePicker1.Checked = false; // 清空时取消选中，表示“未操作”
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -128,13 +143,19 @@ namespace StudentManagementSystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // 退出应用（与 Designer 中的事件关联）
-            Application.Exit();
+            Form2 form2 = Application.OpenForms["Form2"] as Form2;
+            if (form2 == null)
+            {
+                form2 = new Form2();
+            }
+            this.Hide();
+            form2.Show();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
             LoadStudents();
         }
 
@@ -247,6 +268,12 @@ namespace StudentManagementSystem
                 setClauses.Add("Email = @Email");
                 parameters.Add(new MySqlParameter("@Email", email));
             }
+            // 在构建 UPDATE 子句时：只有当用户选中 dateTimePicker1（表示要更新入学日期）时才加入该字段
+            if (dateTimePicker1 != null && dateTimePicker1.Checked)
+            {
+                setClauses.Add("EnrollmentDate = @EnrollmentDate");
+                parameters.Add(new MySqlParameter("@EnrollmentDate", dateTimePicker1.Value.Date));
+            }
 
             // 如果没有生成任何更新子句，再次保护
             if (setClauses.Count == 0)
@@ -335,6 +362,29 @@ namespace StudentManagementSystem
             {
                 MessageBox.Show($"删除时发生错误：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            // 显示 Form2
+            Form2 form2 = Application.OpenForms["Form2"] as Form2;
+            if (form2 == null)
+            {
+                form2 = new Form2();
+            }
+            form2.Show();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
