@@ -25,6 +25,9 @@
         private Button btnEnroll;
         private Button btnClear;
         private Label lblStatus;
+        private Button btnSetNormal;
+        private Button btnSetRepeat;
+        private Button btnSetDrop;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -66,6 +69,9 @@
             btnEnroll = new Button();
             btnClear = new Button();
             lblStatus = new Label();
+            btnSetNormal = new Button();
+            btnSetRepeat = new Button();
+            btnSetDrop = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCourses).BeginInit();
             SuspendLayout();
             // 
@@ -266,11 +272,44 @@
             lblStatus.TabIndex = 18;
             lblStatus.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // btnSetNormal
+            // 
+            btnSetNormal.Location = new Point(33, 150);
+            btnSetNormal.Margin = new Padding(4, 4, 4, 4);
+            btnSetNormal.Name = "btnSetNormal";
+            btnSetNormal.Size = new Size(110, 28);
+            btnSetNormal.TabIndex = 19;
+            btnSetNormal.Text = "设为正常";
+            btnSetNormal.UseVisualStyleBackColor = true;
+            // 
+            // btnSetRepeat
+            // 
+            btnSetRepeat.Location = new Point(151, 150);
+            btnSetRepeat.Margin = new Padding(4, 4, 4, 4);
+            btnSetRepeat.Name = "btnSetRepeat";
+            btnSetRepeat.Size = new Size(110, 28);
+            btnSetRepeat.TabIndex = 20;
+            btnSetRepeat.Text = "设为重修";
+            btnSetRepeat.UseVisualStyleBackColor = true;
+            // 
+            // btnSetDrop
+            // 
+            btnSetDrop.Location = new Point(269, 150);
+            btnSetDrop.Margin = new Padding(4, 4, 4, 4);
+            btnSetDrop.Name = "btnSetDrop";
+            btnSetDrop.Size = new Size(110, 28);
+            btnSetDrop.TabIndex = 21;
+            btnSetDrop.Text = "退课";
+            btnSetDrop.UseVisualStyleBackColor = true;
+            // 
             // Form6
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1210, 672);
+            Controls.Add(btnSetDrop);
+            Controls.Add(btnSetRepeat);
+            Controls.Add(btnSetNormal);
             Controls.Add(lblStatus);
             Controls.Add(btnClear);
             Controls.Add(btnEnroll);
@@ -295,7 +334,6 @@
             Name = "Form6";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "学生选课";
-            Load += Form6_Load_1;
             ((System.ComponentModel.ISupportInitialize)dgvCourses).EndInit();
             ResumeLayout(false);
             PerformLayout();
