@@ -16,10 +16,11 @@ public class Student
 public class Course
 {
     public int Id { get; set; }
-    public string CourseId { get; set; }
+    public string CourseId { get; set; } // 对应表 Courses.CourseCode
     public string CourseName { get; set; }
     public int Credits { get; set; }
     public string Teacher { get; set; }
+    public string Semester { get; set; } // 对应表 Courses.semester (例: 2024-春季 / 2024-秋季)
 }
 //成绩类
 public class Grade

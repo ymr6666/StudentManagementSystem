@@ -37,69 +37,10 @@ namespace StudentManagementSystem
         private readonly SqlHelper _sqlHelper;
         private static readonly string _conn = GetConnectionString();
 
-        private DataGridView dgv;
-        private Button btnSave;
-        private Button btnClear;
-        private Button btnValidate;
-        private Label lblStatus;
-        private CheckBox chkSkipExisting;
-
         public Form4()
         {
-            InitializeCustomComponents();
+            InitializeComponent(); // 使用设计器初始化控件
             _sqlHelper = new SqlHelper(_conn);
-        }
-
-        private void InitializeCustomComponents()
-        {
-            Text = "学生信息批量添加";
-            StartPosition = FormStartPosition.CenterScreen;
-            ClientSize = new Size(1000, 600);
-            MinimumSize = new Size(800, 500);
-
-            var panel = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Top,
-                Height = 40,
-                Padding = new Padding(8, 8, 8, 4),
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false
-            };
-            btnValidate = new Button { Text = "校验", Width = 90, Height = 26 };
-            btnSave = new Button { Text = "保存", Width = 90, Height = 26 };
-            btnClear = new Button { Text = "清空", Width = 90, Height = 26 };
-            chkSkipExisting = new CheckBox { Text = "跳过已存在学号", AutoSize = true, Margin = new Padding(15, 4, 0, 0) };
-            panel.Controls.AddRange(new Control[] { btnValidate, btnSave, btnClear, chkSkipExisting });
-
-            lblStatus = new Label
-            {
-                Text = "Excel复制后在首个单元格 Ctrl+V 粘贴。",
-                Dock = DockStyle.Bottom,
-                Height = 24,
-                TextAlign = ContentAlignment.MiddleLeft,
-                Padding = new Padding(8, 0, 0, 0),
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            dgv = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AllowUserToAddRows = true,
-                AllowUserToDeleteRows = true,
-                BackgroundColor = SystemColors.Window,
-                BorderStyle = BorderStyle.Fixed3D,
-                RowHeadersVisible = false
-            };
-
-            Controls.Add(dgv);
-            Controls.Add(panel);
-            Controls.Add(lblStatus);
-
-            btnValidate.Click += BtnValidate_Click;
-            btnSave.Click += BtnSave_Click;
-            btnClear.Click += btnClear_Click;
-            dgv.KeyDown += Dgv_KeyDown;
-            Load += Form4_Load;
         }
 
         private static string GetConnectionString()
